@@ -6,6 +6,11 @@ var path = require('path');
 var DOCUMENT_ROOT = path.resolve(/\-\-root\|(.*?)(?:\||$)/.test(args) ? RegExp.$1 : process.cwd());
 var app = express();
 
+/*--------------------------- added by felix ------------------------*/
+var HttpTranspondBird = require("./http-transpond-bird.js");
+var httpTranspond = new HttpTranspondBird();
+/*--------------------------------- end -----------------------------*/
+
 // logger
 app.use(require('morgan')('short'));
 
@@ -70,6 +75,12 @@ app.use((function() {
                 return;
             }
         }
+        /*----------------------- added by felix ---------------------*/
+        else {
+            httpTranspond.transpond(req, res);
+            return;
+        }
+        /*------------------------------ end -------------------------*/
 
         next();
     };
