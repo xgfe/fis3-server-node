@@ -3,7 +3,7 @@
 fis3 server 中的默认服务器。基于 express.
 
 
-
+<strong style="color:red;">适用于fis3 3.3.0及以上版本</strong>，以前版本参考[fis-server-lib-node](https://github.com/xgfe/fis-server-lib-node)。
 ##使用方法
 * 覆盖fis3下的fis3-server-node模块
 
