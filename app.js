@@ -15,12 +15,6 @@ var httpTranspond = new HttpTranspondBird();
 // logger
 app.use(require('morgan')('short'));
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
-app.use(bodyParser.json())
-
 // server.conf 功能
 // 支持 test/ 目录下面 .js js 脚本功能和 json 预览功能。
 // 注意这里面的.js，不是一般的.js 文件，而是相当于 express 的 route.
