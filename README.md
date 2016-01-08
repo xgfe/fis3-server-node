@@ -1,23 +1,18 @@
-# fis3-server-node
+# xg-server-node
 
-fis3 server 中的默认服务器。基于 express.
+[xg](https://github.com/xgfe/xg) 中的默认服务器。基于 express.
 
 
-<strong style="color:red;">适用于fis3 3.3.0及以上版本</strong>，以前版本参考[fis-server-lib-node](https://github.com/xgfe/fis-server-lib-node)。
+
 ##使用方法
-* 覆盖fis3下的fis3-server-node模块
-
-* mac下默认路径：/usr/local/lib/node_modules/fis3/node_modules/fis3-server-node
-
-* mac下使用nvm的路径：/usr/local/Cellar/nvm/{nvm version}/versions/node/{node version}/lib/node_modules/fis3/node_modules/fis3-server-node
 
 * 替换后需要重新启动
 		
-		fis3 server start
+		xg server start
 
 * 需要再node server下运行，如果默认启动的不是fis3的node server 则需要如下命令
 
-		fis3 server start --type node
+		xg server start --type node
 
 * 转发规则依赖于transpond-config.js文件，项目下有样例
 
@@ -40,4 +35,4 @@ fis3 server 中的默认服务器。基于 express.
 		    "hackHeaders": false  // 是否修改headers中的host,referer
 		};
 
-* 转发日志文件存储在fis3 server 根目录下的server.log中
+* 转发日志文件存储在xg server 根目录下的server.log中
