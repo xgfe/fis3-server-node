@@ -1,6 +1,6 @@
 {
   "name": "xg-server-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "xg server node",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   ],
   "dependencies": {
     "body-parser": "^1.14.1",
+    "compression": "^1.6.1",
     "express": "4.10.1",
     "morgan": "1.6.1",
     "serve-index": "1.5.0",

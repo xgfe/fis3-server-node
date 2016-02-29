@@ -1,3 +1,4 @@
+var compression = require('compression');
 var express = require('express');
 var args = process.argv.join('|');
 var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 8080;
@@ -11,6 +12,9 @@ var app = express();
 var HttpTranspondBird = require("./http-transpond-bird.js");
 var httpTranspond = new HttpTranspondBird();
 /*--------------------------------- end -----------------------------*/
+
+// gzip
+app.use(compression());
 
 // logger
 app.use(require('morgan')('short'));
