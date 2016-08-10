@@ -1,6 +1,6 @@
 {
   "name": "xg-server-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "xg server node",
   "main": "index.js",
   "scripts": {
