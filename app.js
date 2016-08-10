@@ -50,7 +50,8 @@ app.use(function(req, res, next) {
     if (transRules && transRules.loginUrl) {
         if(!req.cookies['ssoid'] && req.method !== 'POST') {
             res.writeHead(302, {
-                'Location': transRules.loginUrl + '?service=' + encodeURIComponent((https ? 'https' : 'http') + '://localhost:8080/mt-sso')
+                'Location': transRules.loginUrl + '?service='
+                            + encodeURIComponent((https ? 'https' : 'http') + '://127.0.0.1:' + port +'/mt-sso')
             });
             res.end();
             return false;
