@@ -1,5 +1,6 @@
 var compression = require('compression');
 var express = require('express');
+var cookieParser = require('cookie-parser')
 var args = process.argv.join('|');
 var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 8080;
 var https = /\-\-https\|(true)(?:\||$)/.test(args) ? !!RegExp.$1 : false;
@@ -28,6 +29,49 @@ app.use(require('yog-devtools')({
     data_path: path.join(DOCUMENT_ROOT, 'test')
 }));
 
+// cookie parse
+app.use(cookieParser());
+
+// for parsing application/json
+app.use(bodyParser.json());
+
+// for parsing application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// login support
+app.use(function(req, res, next) {
+    var pathname = require('url').parse(req.url).pathname;
+
+    var rootPath = process.argv[process.argv.indexOf('--root') + 1];
+    var configFullPath = path.join(rootPath, "transpond-config.js");
+    var transRules = require(configFullPath).TranspondRules;
+
+    if (transRules && transRules.loginUrl) {
+        if(!req.cookies['ssoid'] && req.method !== 'POST') {
+            res.writeHead(302, {
+                'Location': transRules.loginUrl + '?service=' + encodeURIComponent((https ? 'https' : 'http') + '://localhost:8080/mt-sso')
+            });
+            res.end();
+            return false;
+        }
+    }
+
+    next();
+});
+
+
+app.post('/mt-sso', function (req, res) {
+    var ssoid = req.body.SID;
+    res.cookie('ssoid', ssoid, {
+        expires: new Date(Date.now() + 900000)
+    });
+    res.redirect("/");
+});
+
+
+
+
 // 静态文件输出
 app.use(express.static(DOCUMENT_ROOT, {
     index: ['index.html', 'index.htm', 'default.html', 'default.htm'],
@@ -40,6 +84,7 @@ app.use((function() {
     var fs = require('fs');
 
     return function(req, res, next) {
+        console.log(req.body)
         var pathname = url.parse(req.url).pathname;
         var fullpath = path.join(DOCUMENT_ROOT, pathname);
 
