@@ -32,9 +32,6 @@ app.use(require('yog-devtools')({
 // cookie parse
 app.use(cookieParser());
 
-// for parsing application/json
-app.use(bodyParser.json());
-
 // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -51,13 +48,13 @@ app.use(function(req, res, next) {
         if(!req.cookies['ssoid'] && req.method !== 'POST') {
             res.writeHead(302, {
                 'Location': transRules.loginUrl + '?service='
-                            + encodeURIComponent((https ? 'https' : 'http') + '://127.0.0.1:' + port +'/mt-sso')
+                            + encodeURIComponent((https ? 'https' : 'http') + '://' + req.headers.host +'/mt-sso'
+                            + '?callback=' + req.originalUrl)
             });
             res.end();
             return false;
         }
     }
-
     next();
 });
 
@@ -69,8 +66,6 @@ app.post('/mt-sso', function (req, res) {
     });
     res.redirect("/");
 });
-
-
 
 
 // 静态文件输出
