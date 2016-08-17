@@ -42,7 +42,12 @@ app.use(function(req, res, next) {
 
     var rootPath = process.argv[process.argv.indexOf('--root') + 1];
     var configFullPath = path.join(rootPath, "transpond-config.js");
-    var transRules = require(configFullPath).TranspondRules;
+
+    try {
+        var transRules = require(configFullPath).TranspondRules;
+    } catch (e) {
+        next();
+    }
 
     if (transRules && transRules.loginUrl) {
         if(!req.cookies['ssoid'] && req.method !== 'POST') {
