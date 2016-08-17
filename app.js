@@ -47,6 +47,7 @@ app.use(function(req, res, next) {
         var transRules = require(configFullPath).TranspondRules;
     } catch (e) {
         next();
+        return false;
     }
 
     if (transRules && transRules.loginUrl) {
