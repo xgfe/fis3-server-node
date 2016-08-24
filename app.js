@@ -68,7 +68,9 @@ app.use(function(req, res, next) {
 app.post('/mt-sso', function (req, res) {
     var ssoid = req.body.SID;
     res.cookie('ssoid', ssoid, {
-        expires: new Date(Date.now() + 900000)
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+        path: '/'
     });
     res.redirect("/");
 });
