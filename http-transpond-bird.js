@@ -88,15 +88,15 @@ module.exports = function () {
         });
 
         // 超时处理, 10s超时
-        serverReq.on('socket', function(socket) {
-            socket.setTimeout(10000);
-            socket.on('timeout', function() {
-                serverReq.abort();
-                res.writeHead("504");
-                res.write('transpond setTimeout!');
-                res.end();
-            });
-        });
+        // serverReq.on('socket', function(socket) {
+        //     socket.setTimeout(10000);
+        //     socket.on('timeout', function() {
+        //         serverReq.abort();
+        //         res.writeHead("504");
+        //         res.write('transpond setTimeout!');
+        //         res.end();
+        //     });
+        // });
 
         serverReq.on('error', function (e) {
             console.error('problem with request: ' + e.message);
