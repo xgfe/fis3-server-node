@@ -14,6 +14,12 @@ var HttpTranspondBird = require("./http-transpond-bird.js");
 var httpTranspond = new HttpTranspondBird();
 /*--------------------------------- end -----------------------------*/
 
+// cors
+app.use(function (req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+})
+
 // gzip
 app.use(compression());
 
